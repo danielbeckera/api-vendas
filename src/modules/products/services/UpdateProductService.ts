@@ -19,16 +19,16 @@ class UpdateProductService {
   }: IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
 
-    const productExists = await productsRepository.findByName(name);
-
-    if (productExists) {
-      throw new AppError('Product with the same name already exists');
-    }
-
     const product = await productsRepository.findOne(id);
 
     if (!product) {
       throw new AppError('Product not found');
+    }
+
+    const productExists = await productsRepository.findByName(name);
+
+    if (productExists && name !== product.name) {
+      throw new AppError('Product with the same name already exists');
     }
 
     product.name = name;
