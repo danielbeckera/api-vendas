@@ -15,7 +15,7 @@ class CreateUserService {
     const emailExists = await usersRepository.findByEmail(email);
 
     if (emailExists) {
-      throw new AppError('There is already one user with this email');
+      throw new AppError('Product not found');
     }
 
     const user = usersRepository.create({
