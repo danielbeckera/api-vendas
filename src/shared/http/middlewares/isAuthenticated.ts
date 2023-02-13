@@ -19,6 +19,12 @@ export default function isAuthenticated(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
+    const { sub } = decoded as { sub: string };
+
+    req.user = {
+      id: sub,
+    };
+
     return next();
   } catch {
     throw new AppError('Invalid JWT token.', 401);
