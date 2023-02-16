@@ -41,8 +41,6 @@ class ResetPasswordService {
     user.password = hashedPassword;
 
     await usersRepository.save(user);
-
-    console.log(token);
   }
 }
 
