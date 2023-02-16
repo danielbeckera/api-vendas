@@ -22,6 +22,10 @@ passwordsRouter.post(
   celebrate({
     [Segments.BODY]: {
       password: Joi.string().required().min(6),
+      password_confirmation: Joi.string()
+        .required()
+        .min(6)
+        .valid(Joi.ref('password')),
       token: Joi.string().uuid().required(),
     },
   }),
