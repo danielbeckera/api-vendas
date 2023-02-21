@@ -30,6 +30,10 @@ class SendForgotPasswordEmailService {
     );
 
     await EtherealMail.sendMail({
+      from: {
+        name: 'Equipe API Vendas',
+        email: 'daniel@apivendas.com.br',
+      },
       to: {
         name: user.name,
         email: user.email,
@@ -39,7 +43,7 @@ class SendForgotPasswordEmailService {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link: `http://localhost:3000/reset_password?token=${token}`,
+          link: `http://localhost:3001/reset_password?token=${token}`,
         },
       },
     });
