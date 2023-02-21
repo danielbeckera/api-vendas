@@ -5,7 +5,7 @@ import User from '../typeorm/entities/User';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
-  userId: string;
+  user_id: string;
   name: string;
   email: string;
   password?: string;
@@ -14,7 +14,7 @@ interface IRequest {
 
 class UpdateProfileService {
   public async execute({
-    userId,
+    user_id,
     name,
     email,
     password,
@@ -22,7 +22,7 @@ class UpdateProfileService {
   }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const user = await usersRepository.findById(userId);
+    const user = await usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('User not found.', 404);
@@ -30,7 +30,7 @@ class UpdateProfileService {
 
     const userUpdateEmail = await usersRepository.findByEmail(email);
 
-    if (userUpdateEmail && userUpdateEmail.id !== userId) {
+    if (userUpdateEmail && userUpdateEmail.id !== user_id) {
       throw new AppError('Email already registered.');
     }
 
