@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import Costumers from '../entities/Customer';
 
 @EntityRepository(Costumers)
-export class CostumersRepository extends Repository<Costumers> {
+export class CustomersRepository extends Repository<Costumers> {
   public async findByName(name: string): Promise<Costumers | undefined> {
     const costumer = await this.findOne({
       where: { name },
